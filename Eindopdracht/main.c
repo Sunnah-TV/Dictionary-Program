@@ -3,8 +3,9 @@
 //#define USE_POINTER
 
 int main(){
-	openFile("bacon.txt");
-	writeFile("I love cheese");
+	openFile("dictionary.txt");
+	loadFile();
+	addword("drink", "drinken");
 	closeFile();
 	return 0;
 }

@@ -11,7 +11,7 @@
 #define W_OK    2       /* Test for write permission.  */
 #define F_OK    0       /* Test for existence.  */
 
-FILE *fp;
+#define MAX_CHARS_ON_LINE 62
 
 #ifdef USE_POINTER
 struct relation{
@@ -25,10 +25,13 @@ struct relation{
 };
 #endif
 
+FILE *fp;
+struct relation *list;
 
 void openFile(char path[]);
 void closeFile();
 void printHelp();
-
+void loadFile();
+int getLinesInFile();
 
 #endif /*_DICTIONARY_H_*/
