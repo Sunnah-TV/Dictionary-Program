@@ -5,6 +5,7 @@
 #include <io.h>
 #include "dictionaryadd.h"
 #include "dictionarysearch.h"
+#include "util.h"
 
 #define RW_OK	6		/* Test dor read and write permission*/
 #define R_OK    4       /* Test for read permission.  */
@@ -25,8 +26,14 @@ struct relation{
 };
 #endif
 
+typedef struct{
+	char word[30];
+	char translation[30];
+}temprel;
+
 FILE *fp;
 struct relation *list;
+struct temprel *dictionary;
 
 void openFile(char path[]);
 void closeFile();

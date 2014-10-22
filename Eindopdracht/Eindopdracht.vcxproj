@@ -82,11 +82,13 @@
     <ClCompile Include="dictionaryadd.c" />
     <ClCompile Include="dictionarysearch.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="util.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dictionary.h" />
     <ClInclude Include="dictionaryadd.h" />
     <ClInclude Include="dictionarysearch.h" />
+    <ClInclude Include="util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

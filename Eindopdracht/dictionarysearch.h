@@ -1,7 +1,12 @@
 #ifndef _DICTIONARYSEARH_H_
 #define _DICTIONARYSEARH_H_
 
-void translateWord(char word[]);
+#include "dictionary.h"
+
+#define ARRAYLENGTH(x) (sizeof(x)/sizeof(x[0]));
+
+
+int translateWord(char word[]);
 void printAll();
 
 #endif /*_DICTIONARYSEARH_H_*/

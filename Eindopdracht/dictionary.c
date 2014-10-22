@@ -55,7 +55,7 @@ void loadFile(){
 	int listCounter = 0, wordCounter = 0, charCounter = 0;
 	char c;
 	if (fp){
-		list = malloc(sizeof(struct relation) * getLinesInFile());
+		list = (struct relation *) malloc(sizeof(struct relation) * getLinesInFile());
 
 		while ((c = getc(fp)) != EOF){
 			if (c == ' '){
