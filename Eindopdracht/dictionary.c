@@ -54,29 +54,25 @@ void closeFile(){
 void loadFile(){
 	int listCounter = 0, wordCounter = 0, charCounter = 0;
 	char c;
+	char temp[30];
 	if (fp){
 		list = (struct relation *) malloc(sizeof(struct relation) * getLinesInFile());
 
 		while ((c = getc(fp)) != EOF){
 			if (c == ' '){
-				list[listCounter].word[charCounter] = '\0';//string end indicator
-				wordCounter++;
+				temp[charCounter] = '\0';
 				charCounter = 0;
-			}else if (c == '\n'){
-				list[listCounter].translation[charCounter] = '\0';//string end indicator
-				listCounter++;
-				wordCounter++;
-				charCounter = 0;
-			}else{
-				if (wordCounter % 2 == 0){
-					list[listCounter].word[charCounter] = c;
-					charCounter++;
+				if (wordCounter % 2){
+					strcpy(list[listCounter].translation, temp);
+					wordCounter++;
+					listCounter++;
 				}else{
-					list[listCounter].translation[charCounter] = c;
-					charCounter++;
+					strcpy(list[listCounter].word, temp);
+					wordCounter++;
 				}
 			}
-		}
+			else if(c != '\n') temp[charCounter++] = c;
+		}	
 	}else{
 		printf("Can't load file, must restart program.\n");
 	}
@@ -101,7 +97,34 @@ int getLinesInFile(){
 			lines++;
 		}
 	}
-	printf("%d\n", lines);
 	fseek(fp, 0, SEEK_SET);
-	return lines;
+	return amountOfWords = lines;
+}
+
+/*****************************************************************************
+** Function name:       getAmountOfWords
+**
+** Descriptions:        returns amount of words in dictionary
+**
+** Parameters:         	None
+** Returned value:      Returns an int with amount of words int memory
+**
+*****************************************************************************/
+
+int getAmountOfWords(){
+	return amountOfWords;
+}
+
+/*****************************************************************************
+** Function name:       printHelp
+**
+** Descriptions:        prints the help file
+**
+** Parameters:         	None
+** Returned value:      None
+**
+*****************************************************************************/
+
+void printHelp(){
+
 }

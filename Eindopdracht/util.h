@@ -3,8 +3,4 @@
 
 #include "dictionary.h"
 
-int getArrayLength(char charArray[]);
-int getSizeOf(char charArray[]);
-int getSiz();
-
 #endif

@@ -26,19 +26,15 @@ struct relation{
 };
 #endif
 
-typedef struct{
-	char word[30];
-	char translation[30];
-}temprel;
-
 FILE *fp;
 struct relation *list;
-struct temprel *dictionary;
+unsigned int amountOfWords;
 
 void openFile(char path[]);
 void closeFile();
 void printHelp();
 void loadFile();
 int getLinesInFile();
+int getAmountOfWords();
 
 #endif /*_DICTIONARY_H_*/

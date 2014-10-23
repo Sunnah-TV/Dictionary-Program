@@ -6,16 +6,15 @@
 int main(){
 	openFile("dictionary.txt");
 	loadFile();
-	/*int i = 0;
-	for (i = 0; i < getLinesInFile(); i++){
+	int i = 0;
+	for (i = 0; i < getAmountOfWords()-1; i++){
 		printf("%s %s\n", list[i].word, list[i].translation);
-	}*/
-
-	printf("%d\n", getSiz());
-	printf("%d\n", getArrayLength(list));
-	printf("%d\n", getSizeOf(list));
-
-	//addword("drink", "drinken");
+	}
+	deleteWord("mouse");
+	for (i = 0; i < getAmountOfWords() - 1; i++){
+		printf("%s %s\n", list[i].word, list[i].translation);
+	}
+	addWord("drink", "drinken");
 	closeFile();
 	return 0;
 }
