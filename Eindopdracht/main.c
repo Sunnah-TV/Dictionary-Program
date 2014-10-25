@@ -16,5 +16,8 @@ int main(){
 	}
 	addWord("drink", "drinken");
 	closeFile();
+	while (1){
+
+	}
 	return 0;
 }

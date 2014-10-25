@@ -43,19 +43,24 @@ void addWord(char word[], char translation[]){
 
 void deleteWord(char word[]){
 	int place = isInDictionary(word);
-	if (place){
-		int i = 0, j = 0;
-		for (i = 0; i < getAmountOfWords(); i++){
-			if (i >= place && (i+1)<getAmountOfWords() ){
-				strcpy(list[i].word, list[i + 1].word);
-				strcpy(list[i].translation, list[i + 1].translation);
-			}
+	if (place != NULL){
+		int i = 0;
+		for (i = place; i < (getAmountOfWords()); i++){
+			strcpy(list[i].word, list[i + 1].word);
+			strcpy(list[i].translation, list[i + 1].translation);
 		}
 		amountOfWords--;
 		list = (struct relation *) realloc(list, (sizeof(struct relation)*amountOfWords));
-		fseek(fp, 0, SEEK_SET);
-		for (i = 0; i < getAmountOfWords(); i++){
-			fprintf(fp, (int *)(makeSentence(list[i].word, list[i].translation, " \n")));
+		fclose(fp);
+		remove("dictionary.txt");
+		fopen_s(&fp, "dictionary.txt", "w");
+		for (i = 0; i < amountOfWords; i++){
+				char temp[62];
+				strcpy(temp, list[i].word);
+				strcat(temp, " ");
+				strcat(temp, list[i].translation);
+				strcat(temp, " \n");
+				fprintf(fp, temp);
 		}
 	}else{
 		printf("Word not found\n");

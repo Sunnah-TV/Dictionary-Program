@@ -56,7 +56,7 @@ void loadFile(){
 	char c;
 	char temp[30];
 	if (fp){
-		list = (struct relation *) malloc(sizeof(struct relation) * getLinesInFile());
+		list = malloc(sizeof(struct relation) * getLinesInFile());
 
 		while ((c = getc(fp)) != EOF){
 			if (c == ' '){
