@@ -8,6 +8,5 @@
 
 int translateWord(char word[]);
 int isInDictionary(char word[]);
-void printAll();
 
 #endif /*_DICTIONARYSEARH_H_*/

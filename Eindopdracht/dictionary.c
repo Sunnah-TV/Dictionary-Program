@@ -126,5 +126,54 @@ int getAmountOfWords(){
 *****************************************************************************/
 
 void printHelp(){
+	FILE *help;
+	char path[] = "help.txt";
+	char c = ' ';
+	errno_t err;
+	if (_access(path, F_OK) != -1){
+		err = fopen_s(&help, path, "r+");
+		if (err == 0) {
+			while ((c=getc(help)) != EOF){
+				printf("%c", c);
+			}
+		}
+		else printf("Cannot open File %s\n", path);
+	}
+	else{
+		printf("Cannot open help file, not the right permission.\n");
+	}
+}
 
+/*****************************************************************************
+** Function name:       printAll
+**
+** Descriptions:        prints all words from memory
+**
+** Parameters:         	None
+** Returned value:      None
+**
+*****************************************************************************/
+
+void printAll(){
+	int i;
+	for (i = 0; i < getAmountOfWords(); i++){
+		printf("%s %s\n", list[i].word, list[i].translation);
+	}
+}
+
+/*****************************************************************************
+** Function name:       closeDictionary
+**
+** Descriptions:		frees all memory allocations and closes the file
+**
+** Parameters:         	None
+** Returned value:      None
+**
+*****************************************************************************/
+
+void closeDictionary(){
+	rewriteFile();
+	free(list);
+	closeFile();
+	printf("Bey\n");
 }

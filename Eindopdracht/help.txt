@@ -1,0 +1,12 @@
+Help.
+Press 1 followed by enter to add a word to the list.
+Press 2 followed by enter to remove a word from the list.
+Press 3 followed by enter to change a word or its translation.
+Press 4 followed by enter to print all words in the list.
+Press 5 followed by enter to print for help.
+Press 6 followed by enter to exit the program.
+
+When there is no dictionary file this file will be created.
+You can add words faster by opening the dictionary.txt file.
+!!!Between a word an it translation must be a ' '!!!
+!!!After the translation there must be a ' '!!!

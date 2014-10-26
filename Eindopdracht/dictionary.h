@@ -14,6 +14,9 @@
 
 #define MAX_CHARS_ON_LINE 62
 
+#define FALSE 0
+#define TRUE 1
+
 #ifdef USE_POINTER
 struct relation{
 	char *word;
@@ -36,5 +39,7 @@ void printHelp();
 void loadFile();
 int getLinesInFile();
 int getAmountOfWords();
+void printAll();
+void closeDictionary();
 
 #endif /*_DICTIONARY_H_*/

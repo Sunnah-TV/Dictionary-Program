@@ -35,8 +35,8 @@ int translateWord(char word[]){
 **						functie when adding a word 
 **
 ** Parameters:         	char array wich contains the word you are looking for
-** Returned value:      1 when the dictionay contains the word
-**						0 when the distionary does not contain the word
+** Returned value:      returns position of word in list. 
+**						0 when not found
 *****************************************************************************/
 
 int isInDictionary(char word[]){
@@ -54,20 +54,4 @@ int isInDictionary(char word[]){
 		}
 	}
 	return exit;
-}
-
-/*****************************************************************************
-** Function name:       printAll
-**
-** Descriptions:        prints all words that are currently in the mamory
-**
-** Parameters:         	None
-** Returned value:      None
-*****************************************************************************/
-
-void printAll(){
-	int i = 0;
-	for (i = 0; i < getAmountOfWords(); i++){
-		printf("%s\t%s\n", list[i].word, list[i].translation);
-	}
 }
