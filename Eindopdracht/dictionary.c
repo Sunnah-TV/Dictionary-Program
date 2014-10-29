@@ -10,15 +10,15 @@
 **
 *****************************************************************************/
 
-void openFile(char path[]){
+void openFile(FILE **fp, char path[]){
 	errno_t err;
 	if (_access(path, F_OK)!=-1){
-		err = fopen_s(&fp, path, "r+");
+		err = fopen_s(*&fp, path, "r+");
 		if (err == 0) printf("Opened File %s\n", path);
 		else printf("Cannot open File %s\n", path);
 	}else{
 		printf("File does not exist, created file %s\n", path);
-		err = fopen_s(&fp, path, "w");
+		err = fopen_s(*fp, path, "w");
 	}
 }
 
@@ -32,10 +32,10 @@ void openFile(char path[]){
 **
 *****************************************************************************/
 
-void closeFile(){
-	if (fp){
+void closeFile(FILE **fp){
+	if (*fp){
 		errno_t err;
-		err = fclose(fp);
+		err = fclose(*fp);
 		if (err == 0) printf("Closed File\n");
 		else printf("Cannot close File\n");
 	}
@@ -51,28 +51,29 @@ void closeFile(){
 **
 *****************************************************************************/
 
-void loadFile(){
+void loadFile(FILE **fp, struct relation **list){
 	int listCounter = 0, wordCounter = 0, charCounter = 0;
 	char c;
 	char temp[30];
-	if (fp){
-		list = malloc(sizeof(struct relation) * getLinesInFile());
+	if (*fp){
+		*list = malloc(sizeof(struct relation) * getLinesInFile(fp));
 
-		while ((c = getc(fp)) != EOF){
+		while ((c = getc(*fp)) != EOF){
 			if (c == ' '){
 				temp[charCounter] = '\0';
 				charCounter = 0;
 				if (wordCounter % 2){
-					strcpy(list[listCounter].translation, temp);
+					strcpy_s((*list)[listCounter].translation, 30, temp);
 					wordCounter++;
 					listCounter++;
-				}else{
-					strcpy(list[listCounter].word, temp);
+				}
+				else{
+					strcpy_s((*list)[listCounter].word,30, temp);
 					wordCounter++;
 				}
 			}
-			else if(c != '\n') temp[charCounter++] = c;
-		}	
+			else if (c != '\n') temp[charCounter++] = c;
+		}
 	}else{
 		printf("Can't load file, must restart program.\n");
 	}
@@ -88,16 +89,17 @@ void loadFile(){
 **
 *****************************************************************************/
 
-int getLinesInFile(){
+int getLinesInFile(FILE **fp){
 	int lines = 0;
 	char c;
-	fseek(fp, 0, SEEK_SET);
-	while ((c = getc(fp)) != EOF){
+	fseek(*fp, 0, SEEK_SET);
+	while ((c = getc(*fp)) != EOF){
 		if (c == '\n'){
 			lines++;
 		}
 	}
-	fseek(fp, 0, SEEK_SET);
+	fseek(*fp, 0, SEEK_SET);
+	printf("%d\n", lines);
 	return amountOfWords = lines;
 }
 
@@ -138,10 +140,10 @@ void printHelp(){
 			}
 		}
 		else printf("Cannot open File %s\n", path);
-	}
-	else{
+	}else{
 		printf("Cannot open help file, not the right permission.\n");
 	}
+	closeFile(&help);
 }
 
 /*****************************************************************************
@@ -154,10 +156,10 @@ void printHelp(){
 **
 *****************************************************************************/
 
-void printAll(){
+void printAll(struct relation **list){
 	int i;
 	for (i = 0; i < getAmountOfWords(); i++){
-		printf("%s %s\n", list[i].word, list[i].translation);
+		printf("%s %s\n", (*list)[i].word, (*list)[i].translation);
 	}
 }
 
@@ -171,9 +173,9 @@ void printAll(){
 **
 *****************************************************************************/
 
-void closeDictionary(){
-	rewriteFile();
-	free(list);
-	closeFile();
+void closeDictionary(FILE **fp, struct relation **list){
+	rewriteFile(*&fp, *&list);
+	free(*list);
+	closeFile(*&fp);
 	printf("Bey\n");
 }

@@ -10,29 +10,31 @@
 ** Returned value:      None
 **
 *****************************************************************************/
-void addWord(char word[], char translation[]){
+void addWord(FILE **fp, struct relation **list, char word[], char translation[]){
 	char temp[65];
 	
 	if (checkWords(word, translation)){
-		if (!isInDictionary(word)){
-			amountOfWords++;
-			list = (struct relation *) realloc(list, sizeof(struct relation) * getAmountOfWords());
-			strcpy(list[getAmountOfWords() - 1].word, word);
-			strcpy(list[getAmountOfWords() - 1].translation, translation);
+		if (!isInDictionary(*&list, word)){
+			//if (!isTranslationInDictionary(list, translation)){
+				amountOfWords++;
+				*list = realloc(*list, sizeof(struct relation) * getAmountOfWords());
+				strcpy_s((*list)[getAmountOfWords() - 1].word, 30, word);
+				strcpy_s((*list)[getAmountOfWords() - 1].translation, 30, translation);
 
-			strcpy(temp, word);
-			strcat(temp, " ");
-			strcat(temp, translation);
-			strcat(temp, " \n");
+				strcpy_s(temp, _countof(temp), word);
+				strcat_s(temp, _countof(temp), " ");
+				strcat_s(temp, _countof(temp), translation);
+				strcat_s(temp, _countof(temp), " \n");
 		
-			writeFile(temp);
-			printf("added word %s with translation %s.\n", word, translation);
+				writeFile(*&fp, temp);
+				printf("added word %s with translation %s.\n", word, translation);
+			
 		}else{
-			printf("Word is not added to list, list already contains this word.\n");
+			printf("Word is not added to list, list already contains this translation.\n");
 		}
 	}
 	else{
-		printf("You cannot use spaces in the words you want to add.");
+		printf("You cannot use spaces in the words you want to add.\n");
 	}
 }
 
@@ -47,37 +49,60 @@ void addWord(char word[], char translation[]){
 **
 *****************************************************************************/
 
-void deleteWord(char word[]){
-	int place = isInDictionary(word);
+void deleteWord(FILE **fp, struct relation **list, char word[]){
+	int place = isInDictionary(*&list, word);
 	if (place != NULL){
 		int i = 0;
 		for (i = place; i < (getAmountOfWords()); i++){
-			strcpy(list[i].word, list[i + 1].word);
-			strcpy(list[i].translation, list[i + 1].translation);
+			strcpy_s((*list)[i].word, 30, (*list)[i + 1].word);
+			strcpy_s((*list)[i].translation, 30, (*list)[i + 1].translation);
 		}
 		amountOfWords--;
-		list = (struct relation *) realloc(list, (sizeof(struct relation)*amountOfWords));
-		rewriteFile();
+		*list = (struct relation *) realloc(*list, (sizeof(struct relation)*amountOfWords));
+		rewriteFile(*&fp, *&list);
 	}else{
 		printf("Word not found!\n");
 	}
 }
 
-void changeTranslation(char word[], char translation[]){
-	int position = isInDictionary(word);
+/*****************************************************************************
+** Function name:       changeTranslation
+**
+** Descriptions:        Changes a translation of a word that is alreadt in	
+**						the list.
+**
+** Parameters:         	char array with the word that should be changed
+**						char array translation with the translation that should be changed
+** Returned value:      None
+**
+*****************************************************************************/
+
+void changeTranslation(FILE **fp, struct relation **list, char word[], char translation[]){
+	int position = isInDictionary(*&list, word)+1;
 	if (position){
-		strcpy(list[position].translation, translation);
-		rewriteFile();
+		strcpy_s((*list)[position-1].translation, 30, translation);
+		rewriteFile(*&fp, *&list);
 	}else{
 		printf("Word not found!\n");
 	}
 }
 
-void changeWord(char word[], char newWord[]){
-	int position = isInDictionary(word);
-	if (position){
-		strcpy(list[position].word, newWord);
-		rewriteFile();
+/*****************************************************************************
+** Function name:       changeWord
+**
+** Descriptions:        changes word 
+**
+** Parameters:         	char array with the word that should be changed
+**						char array translation with the translation that should be changed
+** Returned value:      None
+**
+*****************************************************************************/
+
+void changeWord(FILE **fp, struct relation **list, char word[], char newWord[]){
+	int position = isInDictionary(*&list, word)+1;
+	if (position>=0){
+		strcpy_s((*list)[position-1].word, 30, newWord);
+		rewriteFile(*&fp, *&list);
 	}else{
 		printf("Word not found!\n");
 	}
@@ -99,9 +124,10 @@ void changeWord(char word[], char newWord[]){
 *****************************************************************************/
 
 int makeSentence(char sentence[], char word[], char word2[]){
-	strcat(sentence, " ");
-	strcpy(sentence, word);
-	strcpy(sentence, word2);
+	strcat_s(sentence, 1, " ");
+	strcat_s(sentence, 30, word);
+	strcat_s(sentence, 1, " ");
+	strcat_s(sentence, 30, word2);
 	return sentence;
 }
 
@@ -116,9 +142,9 @@ int makeSentence(char sentence[], char word[], char word2[]){
 **
 *****************************************************************************/
 
-void writeFile(char text[]){
-	fseek(fp, 0, SEEK_END);
-	fprintf(fp, text);
+void writeFile(FILE **fp, char text[]){
+	fseek(*fp, 0, SEEK_END);
+	fprintf(*fp, text);
 }
 
 /*****************************************************************************
@@ -156,17 +182,17 @@ int checkWords(char word[], char translation[]){
 **
 *****************************************************************************/
 
-void rewriteFile(){
+void rewriteFile(FILE **fp, struct relation **list){
 	int i;
-	fclose(fp);
+	fclose(*fp);
 	remove("dictionary.txt");
 	fopen_s(&fp, "dictionary.txt", "w");
 	for (i = 0; i < amountOfWords; i++){
 		char temp[62];
-		strcpy(temp, list[i].word);
-		strcat(temp, " ");
-		strcat(temp, list[i].translation);
-		strcat(temp, " \n");
-		fprintf(fp, temp);
+		strcpy_s(temp, _countof(temp), (*list)[i].word);
+		strcat_s(temp, _countof(temp), " ");
+		strcat_s(temp, _countof(temp), (*list)[i].translation);
+		strcat_s(temp, _countof(temp), " \n");
+		fprintf(*&fp, temp);
 	}
 }

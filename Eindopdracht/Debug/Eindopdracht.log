@@ -1,12 +1,15 @@
-﻿Build started 26-10-2014 18:40:41.
+﻿Build started 29-10-2014 15:51:00.
      1>Project "C:\Users\TD\Documents\GitHub\Dictionary-Program\Eindopdracht\Eindopdracht.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt dictionary.c
-         dictionary.c
-     1>c:\users\td\documents\github\dictionary-program\eindopdracht\dictionary.c(59): warning C4013: 'malloc' undefined; assuming extern returning int
-     1>c:\users\td\documents\github\dictionary-program\eindopdracht\dictionary.c(59): warning C4047: '=' : 'relation *' differs in levels of indirection from 'int'
-     1>c:\users\td\documents\github\dictionary-program\eindopdracht\dictionary.c(66): warning C4013: 'strcpy' undefined; assuming extern returning int
-     1>c:\users\td\documents\github\dictionary-program\eindopdracht\dictionary.c(176): warning C4013: 'free' undefined; assuming extern returning int
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt dictionaryadd.c
+         dictionaryadd.c
+     1>c:\users\td\documents\github\dictionary-program\eindopdracht\dictionaryadd.c(54): warning C4047: '!=' : 'int' differs in levels of indirection from 'void *'
+     1>c:\users\td\documents\github\dictionary-program\eindopdracht\dictionaryadd.c(131): warning C4047: 'return' : 'int' differs in levels of indirection from 'char *'
+     1>c:\users\td\documents\github\dictionary-program\eindopdracht\dictionaryadd.c(189): warning C4047: 'function' : 'FILE **' differs in levels of indirection from 'FILE ***'
+     1>c:\users\td\documents\github\dictionary-program\eindopdracht\dictionaryadd.c(189): warning C4024: 'fopen_s' : different types for formal and actual parameter 1
+     1>c:\users\td\documents\github\dictionary-program\eindopdracht\dictionaryadd.c(190): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\td\documents\github\dictionary-program\eindopdracht\dictionaryadd.c(196): warning C4047: 'function' : 'FILE *' differs in levels of indirection from 'FILE **'
+     1>c:\users\td\documents\github\dictionary-program\eindopdracht\dictionaryadd.c(196): warning C4024: 'fprintf' : different types for formal and actual parameter 1
        Link:
          D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\TD\Documents\GitHub\Dictionary-Program\Debug\Eindopdracht.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\TD\Documents\GitHub\Dictionary-Program\Debug\Eindopdracht.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\TD\Documents\GitHub\Dictionary-Program\Debug\Eindopdracht.lib" /MACHINE:X86 Debug\dictionary.obj
          Debug\dictionaryadd.obj
@@ -18,4 +21,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.29
+Time Elapsed 00:00:00.30

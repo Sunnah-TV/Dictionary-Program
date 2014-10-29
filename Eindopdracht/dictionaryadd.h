@@ -3,13 +3,13 @@
 
 #include "dictionary.h"
 
-void addWord(char word[], char translation[]);
-void deleteWord(char word[]);
-void changeTranslation(char word[], char translation[]);
-void changeWord(char word[], char newWord[]);
+void addWord(FILE **, struct relation **list, char[], char[]);
+void deleteWord(FILE **, struct relation **list, char[]);
+void changeTranslation(FILE **, struct relation **list, char[], char[]);
+void changeWord(FILE **, struct relation **list, char[], char[]);
 int makeSentence(char[], char[], char[]);
-void writeFile(char text[]);
-int checkWords(char word[], char translation[]);
-void rewriteFile();
+void writeFile(FILE **, char[]);
+int checkWords(char[], char[]);
+void rewriteFile(FILE **, struct relation **list);
 
 #endif /*_DICTIONARYADD_H_*/

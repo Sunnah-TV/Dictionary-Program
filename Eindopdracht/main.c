@@ -1,55 +1,70 @@
 
 #include <stdio.h>
 #include "dictionary.h"
+//#define _DEBUG
 //#define USE_POINTER
 
 int main(){
-	openFile("dictionary.txt");
-	loadFile();
-	while (1){
-		int input = 0;
-		char inputString[30], inputString2[30];
-		printf("1: Add word\n2: Remove word\n3: Change word\n4: Print all words\n5: Print help\n6: Close program\n");
-		scanf_s("%1d", &input, 1);
+	FILE *fp = NULL;
+	struct relation *list = NULL;
+	
+	openFile(&fp, "dictionary.txt");
+	loadFile(&fp, &list);
 
-		switch (input) {
-		case 1:
+	while (1){
+		fflush(stdout);
+
+		int input = 0, x=0;
+		char inputString[30], inputString2[30];
+		char address[100] = {0};
+		printf("1: Search\n2: Add word\n3: Remove word\n4: Change word\n5: Print all words\n6: Print help\n7: Close program\n");
+		x = scanf_s("%s", address, 2);
+		fflush(stdin);
+
+		switch (address[0]) {
+		case '1':
+			x = scanf_s("%99[a-zA-Z ]s", address, 99);
+			printf("%d\t%s\n", x, address);
+			translateWords(&list, address, sizeof(address)/sizeof(char));
+			break;
+		case '2':
 			printf("Add word: ");
-			scanf_s("%29s", inputString, 30);
-			printf(", with translation: ");
-			scanf_s("%29s", inputString2, 30);
-			addWord(inputString, inputString2);
+			scanf_s("%30s", inputString, 30);
+			printf("with translation: ");
+			scanf_s("%30s", inputString2, 30);
+			addWord(&fp, &list, inputString, inputString2);
 			break;
-		case 2:
+		case '3':
 			printf("Remove word: ");
-			scanf_s("%29s", inputString, 30);
-			deleteWord(inputString);
+			x = getUserInput(inputString, sizeof(inputString));
+			deleteWord(&fp, &list, inputString);
 			break;
-		case 3:
+		case '4':
 			printf("1: change word\n2: change translation\n");
 			scanf_s("%1d", &input, 1);
+			fflush(stdin);
 			if (input == 1){
 				printf("Change word: ");
-				scanf_s("%29s", inputString, 30);
+				scanf_s("%30s", inputString, 30);
 				printf("New word: ");
-				scanf_s("%29s", inputString2, 30);
-				changeWord(inputString, inputString2);
+				scanf_s("%30s", inputString2, 30);
+				changeWord(&fp, &list, inputString, inputString2);
 			}else if (input == 2){
 				printf("Change word: ");
-				scanf_s("%29s", inputString, 30);
+				x = getUserInput(inputString, sizeof(inputString));
 				printf("New translation: ");
-				scanf_s("%29s", inputString2, 30);
-				changeTranslation(inputString, inputString2);
+				x = getUserInput(inputString2, sizeof(inputString2));
+				changeTranslation(&fp, &list, inputString, inputString2);
 			}
 			break;
-		case 4:
-			printAll();
+		case '5':
+			printAll(&list);
 			break;
-		case 5:
+		case '6':
 			printHelp();
 			break;
-		case 6:
-			closeDictionary();
+		case '7':
+			closeDictionary(&fp, &list);
 			return 0;
 		}
 	}

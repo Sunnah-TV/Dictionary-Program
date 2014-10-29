@@ -2,7 +2,9 @@
 #define _DICTIONARY_H_
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <io.h>
+#include <string.h>
 #include "dictionaryadd.h"
 #include "dictionarysearch.h"
 #include "util.h"
@@ -29,17 +31,15 @@ struct relation{
 };
 #endif
 
-FILE *fp;
-struct relation *list;
 unsigned int amountOfWords;
 
-void openFile(char path[]);
-void closeFile();
-void printHelp();
-void loadFile();
-int getLinesInFile();
+void openFile(FILE **, char[]);
+void closeFile(FILE **);
+void loadFile(FILE **, struct relation **list);
+int getLinesInFile(FILE **);
 int getAmountOfWords();
-void printAll();
-void closeDictionary();
+void printHelp();
+void printAll(struct relation **list);
+void closeDictionary(FILE **, struct relation **list);
 
 #endif /*_DICTIONARY_H_*/

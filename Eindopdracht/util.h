@@ -3,4 +3,6 @@
 
 #include "dictionary.h"
 
+int getUserInput(char *returnStr, int maxStringLength);
+
 #endif
